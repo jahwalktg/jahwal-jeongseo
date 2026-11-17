@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>정서적자활 진행 도구 (검수용)</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1f2a26;--sub:#5d6a64;--line:#dcdfd8;--main:#1f7a55;--main-ink:#fff;--soft:#e6f2ec;--warn:#a85b00;--warn-bg:#fff4e0;--bad:#b3261e;--r:10px}
+@media (prefers-color-scheme:dark){:root{--bg:#141917;--card:#1d2421;--ink:#e8eeea;--sub:#9fada6;--line:#33403a;--main:#4fbf8f;--main-ink:#0c1a14;--soft:#1f3329;--warn:#ffb95c;--warn-bg:#3a2c12;--bad:#ff8a80}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Pretendard","Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+header.top{background:var(--main);color:var(--main-ink);padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+header.top a{color:inherit;text-decoration:none}
+header.top .brand{font-weight:700;font-size:17px;margin-right:auto}
+header.top nav a{padding:6px 10px;border-radius:8px;font-size:15px}
+header.top nav a.on{background:rgba(255,255,255,.22)}
+main{max-width:1080px;margin:0 auto;padding:16px}
+h1{font-size:24px;margin:8px 0 4px}h2{font-size:19px;margin:22px 0 8px}h3{font-size:16px;margin:14px 0 6px}
+p{margin:6px 0}.sub{color:var(--sub);font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:10px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+a.card{display:block;color:inherit;text-decoration:none}a.card:hover{border-color:var(--main)}
+.no{display:inline-block;background:var(--main);color:var(--main-ink);border-radius:6px;padding:0 8px;font-weight:700;margin-right:6px}
+.chip{display:inline-block;background:var(--soft);border-radius:999px;padding:1px 10px;font-size:13px;margin:2px 4px 2px 0}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:2px solid var(--line);margin:12px 0}
+.tabs a{padding:8px 14px;text-decoration:none;color:var(--sub);border-radius:8px 8px 0 0}
+.tabs a.on{background:var(--main);color:var(--main-ink)}
+button,.btn{font:inherit;border:1px solid var(--main);background:var(--main);color:var(--main-ink);border-radius:8px;padding:6px 12px;cursor:pointer;text-decoration:none;display:inline-block}
+button.ghost,.btn.ghost{background:transparent;color:var(--main)}
+button.danger{border-color:var(--bad);background:transparent;color:var(--bad)}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 8px;max-width:100%}
+textarea{width:100%;min-height:70px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+.scroll{overflow-x:auto}
+.note{background:var(--warn-bg);color:var(--warn);border-radius:8px;padding:8px 12px;font-size:14px;margin:8px 0}
+.stage{border-left:5px solid var(--main);padding-left:12px;margin:14px 0}
+.item{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.item input[type=checkbox]{width:20px;height:20px;margin-top:4px;flex:none}
+.item .min{flex:none;width:58px;text-align:center}
+.item .min button{padding:2px 6px;font-size:13px;width:100%}
+.item ul{margin:4px 0 0;padding-left:18px;color:var(--sub);font-size:14px}
+.meta{font-size:13px;color:var(--sub)}
+.timer{position:sticky;top:52px;z-index:4;background:var(--card);border:2px solid var(--main);border-radius:var(--r);padding:8px 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.timer b{font-size:26px;font-variant-numeric:tabular-nums;min-width:86px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pages{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.pages a{border:1px solid var(--line);border-radius:6px;overflow:hidden;display:block;background:#fff;text-align:center;font-size:12px;color:#333;text-decoration:none}
+.pages img{width:100%;display:block}
+.p1{background:#fde7e4;color:#a3271d}.p2{background:var(--warn-bg);color:var(--warn)}.p3{background:var(--line);color:var(--sub)}.ok{background:var(--main);color:var(--main-ink)}
+.q label{display:block;padding:4px 0}.q textarea{min-height:54px}.steps{padding:0;list-style:none;counter-reset:s}.steps li{counter-increment:s;padding:6px 0 6px 40px;position:relative}.steps li:before{content:counter(s);position:absolute;left:0;top:6px;width:28px;height:28px;border-radius:50%;background:var(--main);color:var(--main-ink);text-align:center;font-weight:700}
+.prog{height:10px;background:var(--line);border-radius:5px;overflow:hidden}.prog i{display:block;height:100%;background:var(--main)}
+.opt{display:block;width:100%;text-align:left;margin:5px 0;padding:9px 12px;background:transparent;color:var(--ink);border:1px solid var(--line)}.opt:hover{border-color:var(--main)}.opt.on{background:var(--soft);border:2px solid var(--main);font-weight:700}
+.qgrid{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}.qgrid .th{flex:none;width:170px;font-size:12px;text-align:center;color:var(--sub);text-decoration:none}.qgrid .th img{width:100%;display:block;border:1px solid var(--line);border-radius:6px;background:#fff}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:12px 0}.tile{border:1px solid var(--line);border-radius:10px;padding:10px 12px}.tile b{display:block;font-size:26px;line-height:1.3}.tile span{display:block}
+details.card summary{cursor:pointer}
+.bar{height:12px;background:var(--main);border-radius:6px;min-width:2px}
+.bar.pre{background:var(--sub)}
+.att{cursor:pointer;text-align:center;user-select:none;min-width:38px}
+.num{width:52px;text-align:center;padding:3px}
+#printArea{display:none}
+@media print{header.top,main{display:none!important}#printArea{display:block}#printArea img{width:100%;page-break-after:always}body{background:#fff;color:#000}#printArea table{font-size:12px}#printArea th{background:#eee}#printArea .rep{padding:0 6mm}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+@media (max-width:600px){.item .min{width:48px}h1{font-size:20px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#/">정서적자활 진행 도구 <span style="font-weight:400;font-size:13px">검수용</span></a>
+  <nav><a href="#/" data-n="home">과정</a><a href="#/run" data-n="run">운영 기록</a><a href="#/review" data-n="review">검수</a><a href="#/data" data-n="data">자료 관리</a></nav>
+  <span id="sync" style="font-size:13px;width:100%;text-align:right"></span>
+</header>
+<main id="app"></main>
+<div id="printArea"></div>
+<script src="data.js"></script>
+<script>
+const G=window.GUIDE||{programs:[],front:{}};
+const KEY='jeongseo-jahwal-v1';
+let S=load();
+function load(){try{return Object.assign({groups:[],reviews:[],rev:{},cur:'',me:{},ans:{},adm:{files:[],st:{}}},JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){return{groups:[],reviews:[],rev:{},cur:'',me:{},ans:{},adm:{files:[],st:{}}}}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){alert('이 브라우저에 저장하지 못했습니다. 「자료 관리」에서 파일로 내려받아 두세요.')}}
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=(q,el=document)=>el.querySelector(q);
+const P=no=>G.programs.find(p=>p.no==no);
+const pad=n=>String(n).padStart(3,'0');
+const img=n=>`pages/p${pad(n)}.jpg`;
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const li=a=>(a||[]).map(x=>`<li>${esc(x)}</li>`).join('');
+function pageThumbs(list){list=[...new Set(list||[])].sort((a,b)=>a-b);if(!list.length)return'';
+  return `<div class="pages">${list.map(n=>`<a href="${img(n)}" target="_blank"><img loading="lazy" src="${img(n)}" alt="원본 ${n-2}쪽">책 ${n-2}쪽</a>`).join('')}</div>
+  <p><button class="ghost" onclick='printPages(${JSON.stringify(list)})'>이 쪽들 인쇄</button></p>`}
+function printPages(list){$('#printArea').innerHTML=list.map(n=>`<img src="${img(n)}">`).join('');const im=[...document.querySelectorAll('#printArea img')];let c=0;const go=()=>{if(++c>=im.length)window.print()};im.forEach(i=>{if(i.complete)go();else{i.onload=go;i.onerror=go}})}
+
+/* ---------- 화면 나누기 ---------- */
+window.addEventListener('hashchange',route);
+function route(){stopTimer();const h=(location.hash||'#/').slice(2).split('/');const app=$('#app');
+  document.querySelectorAll('header nav a').forEach(a=>a.classList.toggle('on',a.dataset.n===(h[0]==='p'||!h[0]?'home':h[0]==='report'?(h[1]==='sample'?'review':'run'):h[0])));
+  if(!G.programs.length){app.innerHTML='<div class="note">과정 자료(data.js)를 불러오지 못했습니다.</div>';return}
+  if(!h[0])app.innerHTML=home();
+  else if(h[0]==='p'&&h[2]==='s')app.innerHTML=session(P(h[1]),+h[3]);
+  else if(h[0]==='p')app.innerHTML=program(P(h[1]),h[2]||'overview');
+  else if(h[0]==='report')app.innerHTML=report(h[1],+h[2]);
+  else if(h[0]==='run'&&h[1])app.innerHTML=group(h[1],h[2]);
+  else if(h[0]==='run')app.innerHTML=runList();
+  else if(h[0]==='review')app.innerHTML=h[1]==='p'?revProg(+h[2]):h[1]==='admin'?admin():review();
+  else if(h[0]==='data')app.innerHTML=dataPage();
+  window.scrollTo(0,0);showSync()}
+
+/* ---------- 과정 목록 ---------- */
+let filt={q:'',n:''};
+function home(){const list=G.programs.filter(p=>(!filt.n||p.sessions.length==filt.n)&&(!filt.q||JSON.stringify([p.title,p.subtitle,p.overview]).includes(filt.q)));
+  return `<h1>서울특화 정서적자활 프로그램</h1>
+  <p class="sub">가이드북의 7개 과정을 회기 단위로 따라가며 진행·기록·평가할 수 있게 옮긴 검수용 도구입니다. 참여주민은 반드시 <b>사례관리번호(별칭)</b>로만 적습니다.</p>
+  <div class="card row"><b>과정 고르기</b>
+   <input placeholder="대상·낱말 (예: 청년, 게이트웨이, 1인가구)" value="${esc(filt.q)}" oninput="filt.q=this.value;$('#plist').innerHTML=cards()" style="flex:1;min-width:200px">
+   <select onchange="filt.n=this.value;$('#plist').innerHTML=cards()"><option value="">회기 수 전체</option><option value="4"${filt.n==4?' selected':''}>4회기</option><option value="8"${filt.n==8?' selected':''}>8회기</option></select></div>
+  <div class="grid" id="plist">${cards(list)}</div>`}
+function cards(list){list=list||G.programs.filter(p=>(!filt.n||p.sessions.length==filt.n)&&(!filt.q||JSON.stringify([p.title,p.subtitle,p.overview]).includes(filt.q)));
+  return list.map(p=>`<a class="card" href="#/p/${p.no}"><div><span class="no">${String(p.no).padStart(2,'0')}</span><b>${esc(p.title)}</b></div>
+  <div class="sub">${esc(p.subtitle)}</div><p style="font-size:14px">${esc(p.overview.target)}</p>
+  <span class="chip">${p.sessions.length}회기</span><span class="chip">${esc(p.overview.groupSize)}</span>
+  <div class="meta">${(p.developers||[]).map(d=>esc(d.name+' · '+d.center)).join(', ')}</div></a>`).join('')||'<p class="sub">조건에 맞는 과정이 없습니다.</p>'}
+
+/* ---------- 과정 ---------- */
+function ptabs(p,t){const T=[['overview','개요'],['sessions','회기'],['eval','평가 척도'],['forms','양식·워크시트'],['notes','확인할 점']];
+  return `<p class="sub"><a href="#/">과정</a> ›</p><h1><span class="no">${String(p.no).padStart(2,'0')}</span>${esc(p.title)}</h1><p class="sub">${esc(p.subtitle)} · ${(p.developers||[]).map(d=>esc(d.name+'('+d.center+')')).join(', ')} · 책 ${p.pdfPages[0]-2}~${p.pdfPages[1]-2}쪽</p>
+  <div class="tabs">${T.map(x=>`<a class="${x[0]===t?'on':''}" href="#/p/${p.no}/${x[0]}">${x[1]}</a>`).join('')}</div>`}
+function program(p,t){if(!p)return'<p>없는 과정입니다.</p>';const o=p.overview,e=p.evaluation||{};let b='';
+  if(t==='overview')b=`<div class="card"><h3>대상</h3><p>${esc(o.target)}</p>${o.learnerTraits&&o.learnerTraits.length?`<h3>학습자 특성</h3><ul>${li(o.learnerTraits)}</ul>`:''}
+    <p><span class="chip">시간 ${esc(o.hours)}</span><span class="chip">인원 ${esc(o.groupSize)}</span></p>
+    <h3>학습 목표</h3><ul>${li(o.goals)}</ul><h3>교재·교보재</h3><p>${(o.materials||[]).map(m=>`<span class="chip">${esc(m)}</span>`).join('')}</p>
+    <h3>평가도구</h3><ul>${li(o.evalTools)}</ul></div>
+    <div class="card"><h3>개발 배경</h3><p>${esc(p.background)}</p><p>${(p.theory||[]).map(m=>`<span class="chip">${esc(m)}</span>`).join('')}</p><h3>회기 구성의 흐름</h3><p>${esc(p.flow)}</p></div>
+    ${p.futureUse&&p.futureUse.length?`<div class="card"><h3>향후 활용</h3><ul>${li(p.futureUse)}</ul></div>`:''}
+    ${p.testimonials?`<div class="card"><h3>활동기록·참여자 소감</h3><p>${esc(p.testimonials)}</p></div>`:''}`;
+  if(t==='sessions')b=`<div class="scroll"><table><tr><th>회기</th><th>제목</th><th>핵심개념</th><th>목표</th><th>주요내용</th><th></th></tr>${p.sessions.map(s=>`<tr><td>${s.n}</td><td><b>${esc(s.title)}</b></td><td>${esc(s.concept)}</td><td>${esc(s.goal)}</td><td><ul style="margin:0;padding-left:16px">${li(s.mainItems)}</ul></td><td><a class="btn" href="#/p/${p.no}/s/${s.n}">진행판</a></td></tr>`).join('')}</table></div>`;
+  if(t==='eval')b=(e.quant||[]).map((q,i)=>scaleCard(p,q,i)).join('')+((e.qual||[]).map(q=>`<div class="card"><h3>${esc(q.name)}</h3><p class="sub">${esc(q.when)}</p><ul>${li(q.questions)}</ul></div>`).join(''))||'<p class="sub">등록된 척도가 없습니다.</p>';
+  if(t==='forms')b=`${(e.otherForms||[]).map(f=>`<div class="card"><h3>${esc(f.name)}</h3><p>${esc(f.desc)}</p>${f.fields&&f.fields.length?`<ul>${li(f.fields)}</ul>`:''}${pageThumbs([f.pdfPage].filter(Boolean))}</div>`).join('')}
+    ${p.sessions.map(s=>{const w=(p.worksheets||[]).filter(x=>x.session==s.n);return w.length?`<h2>${s.n}회기 · ${esc(s.title)}</h2>${w.map(wsCard).join('')}`:''}).join('')}
+    ${(p.worksheets||[]).filter(x=>!p.sessions.some(s=>s.n==x.session)).map(wsCard).join('')}`;
+  if(t==='notes')b=`<div class="card"><h3>책에서 확인이 필요한 점</h3><p>책을 도구로 옮기면서 찾은 불일치·빠진 내용을 <b>${items(p.no).length}개 확인 항목</b>으로 정리했습니다. 이 가운데 ${items(p.no).filter(answered).length}개에 답하셨습니다.</p><p><a class="btn" href="#/review/p/${p.no}">확인 항목에 답하기</a> <a class="btn ghost" href="#/review">검수 안내 보기</a></p></div>
+    <div class="card"><h3>사진·그림</h3><ul>${(p.photos||[]).map(x=>`<li><a href="${img(x.pdfPage)}" target="_blank">책 ${x.pdfPage-2}쪽</a> — ${esc(x.desc)}</li>`).join('')||'<li>없음</li>'}</ul></div>`;
+  return ptabs(p,t)+b}
+function wsCard(w){return `<div class="card"><b>${esc(w.title)}</b> <span class="chip">${esc(w.kind)}</span>${w.needsImage?'<span class="chip" style="background:var(--warn-bg);color:var(--warn)">원본 도안 필요</span>':''}
+  ${w.prompts&&w.prompts.length?`<ul>${li(w.prompts)}</ul>`:''}${w.content?`<details><summary>원문 보기</summary><div style="white-space:pre-wrap;font-size:14px">${esc(typeof w.content==='string'?w.content:Array.isArray(w.content)?w.content.map(x=>typeof x==='string'?x:JSON.stringify(x,null,1)).join('\n'):JSON.stringify(w.content,null,1))}</div></details>`:''}${w.note?`<p class="sub">${esc(w.note)}</p>`:''}${pageThumbs(w.pdfPages)}</div>`}
+function revKey(p,i){return p.no+'-'+i}
+function revOf(p,q,i){const o=S.rev[revKey(p,i)];return q.items.map((it,k)=>o?!!o[k]:it.reverse===true)}
+function revUnknown(p,q,i){return !S.rev[revKey(p,i)]&&q.items.some(it=>it.reverse==null)}
+function scaleCard(p,q,i){const r=revOf(p,q,i);
+  return `<div class="card"><h3>${esc(q.name)} ${q.abbr?`<span class="chip">${esc(q.abbr)}</span>`:''}</h3>
+  <p class="sub">${esc(q.when)} · ${q.points}점 척도 (${(q.labels||[]).map(esc).join(' / ')}) · 책 ${q.pdfPage?q.pdfPage-2:'?'}쪽</p>
+  ${q.instruction?`<p>${esc(q.instruction)}</p>`:''}
+  ${revUnknown(p,q,i)?'<div class="note">책에 역채점 문항이 적혀 있지 않습니다. 지금은 단순 합계로 계산합니다. 아래 「역」 칸을 표시하면 그 문항은 거꾸로 채점됩니다(개발자 확인 필요).</div>':''}
+  <div class="scroll"><table><tr><th>번호</th><th>문항</th><th title="역채점">역</th></tr>${q.items.map((it,k)=>`<tr><td>${it.n}</td><td>${esc(it.text)}</td><td><input type="checkbox" ${r[k]?'checked':''} onchange="setRev(${p.no},${i},${k},this.checked)"></td></tr>`).join('')}</table></div>
+  ${q.subscales?`<p class="sub">하위영역: ${esc(q.subscales)}</p>`:''}${q.scoring?`<p class="sub">채점·해석: ${esc(q.scoring)}</p>`:''}
+  <p class="row"><button class="ghost" onclick="printScale(${p.no},${i})">설문지 인쇄</button>${q.pdfPage?`<a class="btn ghost" target="_blank" href="${img(q.pdfPage)}">원본 쪽 보기</a>`:''}</p></div>`}
+function setRev(no,i,k,v){const p=P(no),q=p.evaluation.quant[i];const cur=revOf(p,q,i);cur[k]=v;S.rev[revKey(p,i)]=cur;save();push({t:'rev',val:S.rev})}
+function printScale(no,i){const p=P(no),q=p.evaluation.quant[i];
+  $('#printArea').innerHTML=`<h2>${esc(q.name)}</h2><p>사례관리번호: ____________ &nbsp; □ 사전 □ 사후 &nbsp; 날짜: ____________</p><p>${esc(q.instruction||'')}</p>
+  <table><tr><th>번호</th><th>문항</th>${(q.labels||[]).map(l=>`<th>${esc(l)}</th>`).join('')}</tr>${q.items.map(it=>`<tr><td>${it.n}</td><td>${esc(it.text)}</td>${(q.labels||[]).map(()=>'<td style="text-align:center">□</td>').join('')}</tr>`).join('')}</table><p>본 설문은 프로그램 평가의 목적으로만 사용됩니다.</p>`;window.print()}
+
+/* ---------- 회기 진행판 ---------- */
+let long=false,tm=null,left=0,tlabel='';
+function fmt(s){s=Math.max(0,s);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function mm(m){return m==null?null:(long?Math.round(m*1.5/5)*5:m)}
+function startTimer(m,label){stopTimer();left=m*60;tlabel=label;tick();tm=setInterval(()=>{left--;tick();if(left<=0){stopTimer(true)}},1000)}
+function tick(){const t=$('#tnow'),l=$('#tlab');if(t)t.textContent=fmt(left);if(l)l.textContent=tlabel}
+function stopTimer(done){if(tm){clearInterval(tm);tm=null}if(done){const l=$('#tlab');if(l)l.textContent=tlabel+' — 시간이 다 됐습니다';try{const a=new AudioContext(),o=a.createOscillator();o.connect(a.destination);o.start();o.stop(a.currentTime+.6)}catch(e){}}}
+function curGroup(no){return S.groups.find(g=>g.id===S.cur&&g.prog==no)}
+function session(p,n){const s=p&&p.sessions.find(x=>x.n==n);if(!s)return'<p>없는 회기입니다.</p>';const g=curGroup(p.no);const gs=S.groups.filter(x=>x.prog==p.no);
+  const done=(g&&g.done&&g.done[n])||{};const prev=p.sessions.find(x=>x.n==n-1);const total=s.stages.reduce((a,st)=>a+(mm(st.minutes)||0),0);
+  const ws=(p.worksheets||[]).filter(w=>w.session==n);
+  return `<p class="sub"><a href="#/">과정</a> › <a href="#/p/${p.no}/sessions">${esc(p.title)}</a> ›</p>
+  <h1>${n}회기 · ${esc(s.title)}</h1><p><span class="chip">${esc(s.concept)}</span> ${esc(s.goal)}</p>
+  <div class="card row"><label>운영 집단 <select onchange="S.cur=this.value;save();route()"><option value="">(기록 안 함 — 미리 보기)</option>${gs.map(x=>`<option value="${x.id}"${g&&g.id===x.id?' selected':''}>${esc(x.name)}</option>`).join('')}</select></label>
+    <label><input type="checkbox" ${long?'checked':''} onchange="long=this.checked;route()"> 3시간 운영안</label>
+    <span class="sub">합계 ${total}분</span>
+    ${n>1?`<a class="btn ghost" href="#/p/${p.no}/s/${n-1}">← 이전</a>`:''}${n<p.sessions.length?`<a class="btn ghost" href="#/p/${p.no}/s/${n+1}">다음 →</a>`:''}</div>
+  ${long?'<div class="note">3시간 운영안은 책의 2시간 시간표를 1.5배로 늘려 5분 단위로 맞춘 <b>임시 배분</b>입니다. 늘어난 시간을 어디에 쓸지는 개발자 의견을 받아 확정합니다.</div>':''}
+  ${g?'':'<div class="note">운영 집단을 고르면 진행 체크·출석·메모가 저장됩니다. 집단은 「운영 기록」에서 만듭니다.</div>'}
+  <div class="timer"><b id="tnow">00:00</b><span id="tlab" class="sub">항목 옆 「○분」을 누르면 시간을 잽니다</span><button class="ghost" onclick="stopTimer()">멈춤</button></div>
+  <div class="card"><h3>준비물</h3><p>${[...new Set(s.stages.flatMap(st=>st.items.map(i=>i.materials)).filter(Boolean).flatMap(x=>String(x).split(/[,،、\n]/)).map(x=>x.trim()).filter(Boolean))].map(m=>`<span class="chip">${esc(m)}</span>`).join('')||'<span class="sub">책에 따로 적힌 준비물 없음</span>'}</p>
+  ${prev&&prev.homework&&prev.homework.length?`<h3>지난 회기 과제 점검</h3><ul>${li(prev.homework)}</ul>`:''}</div>
+  ${s.stages.map((st,a)=>`<div class="stage"><h2>${esc(st.stage)} <span class="sub">${mm(st.minutes)!=null?mm(st.minutes)+'분':''}</span></h2>
+    ${st.items.map((it,b)=>{const k=a+'-'+b;return `<div class="item"><input type="checkbox" ${done[k]?'checked':''} ${g?'':'disabled'} onchange="setDone(${p.no},${n},'${k}',this.checked)">
+      <div class="min">${it.minutes!=null?`<button class="ghost" onclick='startTimer(${mm(it.minutes)},${JSON.stringify(String(it.text).slice(0,30))})'>${mm(it.minutes)}분</button>`:''}</div>
+      <div><div>${esc(it.text)}</div>${it.sub&&it.sub.length?`<ul>${li(it.sub)}</ul>`:''}<div class="meta">${[it.method,it.materials].filter(Boolean).map(esc).join(' · ')}</div></div></div>`}).join('')}</div>`).join('')}
+  ${s.homework&&s.homework.length?`<div class="card"><h3>이번 회기 과제</h3><ul>${li(s.homework)}</ul></div>`:''}
+  ${s.tip?`<div class="card"><h3>과정 안내 및 운영의 TIP</h3><p>${esc(s.tip)}</p></div>`:''}
+  ${ws.length||(s.worksheetPdfPages||[]).length?`<h2>이 회기 워크시트</h2>${ws.map(wsCard).join('')||pageThumbs(s.worksheetPdfPages)}`:''}
+  ${g?`<div class="card"><h3>회기 기록 — ${esc(g.name)}</h3><div class="row"><label>진행일 <input type="date" value="${esc((g.log[n]||{}).date||'')}" onchange="setLog('${g.id}',${n},'date',this.value)"></label><a class="btn ghost" href="#/run/${g.id}">출석·관찰 기록 열기</a></div>
+    <p><textarea placeholder="회기 운영 메모 (잘된 점, 어려웠던 점, 다음에 바꿀 점). 이름 대신 사례관리번호로 적습니다." onchange="setLog('${g.id}',${n},'memo',this.value)">${esc((g.log[n]||{}).memo||'')}</textarea></p></div>`:''}
+  <div class="card"><h3>검수 의견 남기기</h3><div class="row"><input id="rvwho" placeholder="적는 사람" style="width:140px"><input id="rvtx" placeholder="이 회기에서 고칠 점·보탤 점" style="flex:1;min-width:200px"><button onclick="addReview(${p.no},${n})">남기기</button></div></div>`}
+function setDone(no,n,k,v){const g=curGroup(no);if(!g)return;g.done=g.done||{};g.done[n]=g.done[n]||{};g.done[n][k]=v;save()}
+function setLog(id,n,f,v){const g=S.groups.find(x=>x.id===id);g.log[n]=g.log[n]||{};g.log[n][f]=v;save()}
+
+/* ---------- 운영 기록 ---------- */
+function runList(){return `<h1>운영 기록</h1><p class="sub">과정을 실제로 운영하는 집단(기수)을 만들고 출석·과제·관찰·사전사후 검사를 기록합니다. 자료는 이 컴퓨터의 이 브라우저에만 저장됩니다.</p>
+  <div class="note">참여주민은 <b>사례관리번호(별칭)</b>로만 적습니다. 이름·주민번호·연락처는 넣지 마세요. 번호와 실제 인물의 대조표는 운영자가 따로 관리합니다.</div>
+  <div class="card"><h3>새 집단 만들기</h3><div class="row"><select id="ngp">${G.programs.map(p=>`<option value="${p.no}">${String(p.no).padStart(2,'0')} ${esc(p.title)}</option>`).join('')}</select>
+   <input id="ngn" placeholder="집단 이름 (예: 2027년 1기)"><input id="ngf" placeholder="진행자"><button onclick="addGroup()">만들기</button></div></div>
+  ${S.groups.map(g=>{const p=P(g.prog);return `<a class="card" href="#/run/${g.id}"><b>${esc(g.name)}</b> <span class="chip">${String(p.no).padStart(2,'0')} ${esc(p.title)}</span><div class="sub">참여자 ${g.members.length}명 · 진행자 ${esc(g.facilitator||'-')}</div></a>`}).join('')||'<p class="sub">아직 만든 집단이 없습니다.</p>'}
+  <p class="sub">기록을 넣으면 어떤 결과물이 나오는지 먼저 보려면 <a href="#/report/sample/1">견본 보고서</a>를 열어 보세요.</p>`}
+function addGroup(){const n=$('#ngn').value.trim();if(!n){alert('집단 이름을 적어 주세요.');return}
+  const g={id:uid(),prog:+$('#ngp').value,name:n,facilitator:$('#ngf').value.trim(),members:[],att:{},log:{},scores:{},done:{}};S.groups.push(g);S.cur=g.id;save();location.hash='#/run/'+g.id}
+const ATT=['','○','△','×'];
+function tot(p,q,i,arr){if(!arr)return null;const r=revOf(p,q,i);let t=0,c=0;q.items.forEach((it,k)=>{const v=+arr[k];if(v>=1&&v<=q.points){t+=r[k]?(q.points+1-v):v;c++}});return c===q.items.length?t:null}
+function group(id,code){const g=S.groups.find(x=>x.id===id);if(!g)return'<p>없는 집단입니다.</p>';const p=P(g.prog);const Q=(p.evaluation||{}).quant||[];
+  if(code)return member(g,p,decodeURIComponent(code));
+  const rate=g.members.length?Math.round(100*g.members.reduce((a,m)=>a+p.sessions.filter(s=>((g.att[s.n]||{})[m.code]||{}).a==='○').length,0)/(g.members.length*p.sessions.length)):0;
+  return `<p class="sub"><a href="#/run">운영 기록</a> ›</p><h1>${esc(g.name)}</h1><p class="sub">${String(p.no).padStart(2,'0')} ${esc(p.title)} · 진행자 ${esc(g.facilitator||'-')}</p>
+  <div class="card"><h3>참여자 (사례관리번호)</h3><div class="row"><input id="nm" placeholder="사례관리번호 (예: G-2027-014)"><button onclick="addMember('${g.id}')">추가</button></div>
+   <p>${g.members.map(m=>`<a class="chip" href="#/run/${g.id}/${encodeURIComponent(m.code)}">${esc(m.code)}</a>`).join('')||'<span class="sub">아직 없습니다.</span>'}</p><p class="sub">번호를 누르면 그 참여자의 출석·과제·관찰·검사 점수를 적습니다.</p></div>
+  <div class="card"><h3>출석표 <span class="sub">출석률 ${rate}% · 칸을 누르면 ○(출석) → △(지각·조퇴) → ×(결석)</span></h3><div class="scroll"><table><tr><th>번호</th>${p.sessions.map(s=>`<th><a href="#/p/${p.no}/s/${s.n}">${s.n}회</a></th>`).join('')}<th>과제</th></tr>
+   ${g.members.map(m=>`<tr><td><a href="#/run/${g.id}/${encodeURIComponent(m.code)}">${esc(m.code)}</a></td>${p.sessions.map(s=>`<td class="att" onclick="cycAtt('${g.id}',${s.n},'${esc(m.code)}')">${((g.att[s.n]||{})[m.code]||{}).a||'·'}</td>`).join('')}<td>${p.sessions.filter(s=>((g.att[s.n]||{})[m.code]||{}).hw).length}회</td></tr>`).join('')}
+   <tr><th>진행일</th>${p.sessions.map(s=>`<td class="sub">${esc(((g.log[s.n]||{}).date||'').slice(5))}</td>`).join('')}<td></td></tr></table></div></div>
+  ${Q.map((q,i)=>resultCard(g,p,q,i)).join('')}
+  <div class="card"><h3>회기 운영 메모</h3>${p.sessions.map(s=>(g.log[s.n]||{}).memo?`<p><b>${s.n}회기</b> ${esc(g.log[s.n].memo)}</p>`:'').join('')||'<p class="sub">회기 진행판에서 적은 메모가 여기 모입니다.</p>'}</div>
+  <p class="row"><a class="btn" href="#/report/${g.id}">집단 결과 보고서</a><button class="ghost" onclick="csv('${g.id}')">결과표 내려받기 (CSV)</button><button class="danger" onclick="delGroup('${g.id}')">이 집단 지우기</button></p>`}
+function resultCard(g,p,q,i){const sc=(g.scores[i]||{});const rows=g.members.map(m=>{const a=tot(p,q,i,(sc[m.code]||{}).pre),b=tot(p,q,i,(sc[m.code]||{}).post);return{c:m.code,a,b}});
+  const both=rows.filter(r=>r.a!=null&&r.b!=null);const avg=k=>both.length?(both.reduce((s,r)=>s+r[k],0)/both.length).toFixed(1):'-';const max=q.items.length*q.points;
+  return `<div class="card"><h3>${esc(q.name)} — 사전·사후</h3>${revUnknown(p,q,i)?'<div class="note">역채점 문항이 확정되지 않아 단순 합계입니다. 점수 해석에 주의하세요.</div>':''}
+  <div class="scroll"><table><tr><th>번호</th><th>사전</th><th>사후</th><th>변화</th><th style="width:40%">막대 (회색 사전 / 초록 사후, 만점 ${max})</th></tr>
+  ${rows.map(r=>`<tr><td>${esc(r.c)}</td><td>${r.a??'-'}</td><td>${r.b??'-'}</td><td>${r.a!=null&&r.b!=null?(r.b-r.a>0?'+':'')+(r.b-r.a):'-'}</td><td>${r.a!=null?`<div class="bar pre" style="width:${100*r.a/max}%"></div>`:''}${r.b!=null?`<div class="bar" style="width:${100*r.b/max}%;margin-top:2px"></div>`:''}</td></tr>`).join('')}
+  <tr><th>평균 (둘 다 한 ${both.length}명)</th><th>${avg('a')}</th><th>${avg('b')}</th><th>${both.length?((avg('b')-avg('a'))>0?'+':'')+(avg('b')-avg('a')).toFixed(1):'-'}</th><th>향상 ${both.filter(r=>r.b>r.a).length}명 · 같음 ${both.filter(r=>r.b===r.a).length}명 · 하락 ${both.filter(r=>r.b<r.a).length}명</th></tr></table></div>
+  <p class="sub">점수가 높을수록 좋은지는 척도마다 다릅니다. 「평가 척도」의 채점·해석 안내를 함께 보세요.</p></div>`}
+function addMember(id){const g=S.groups.find(x=>x.id===id);const c=$('#nm').value.trim();if(!c)return;if(g.members.some(m=>m.code===c)){alert('이미 있는 번호입니다.');return}
+  if(/[가-힣]{2,4}$/.test(c)&&!/\d/.test(c)&&!confirm('이름처럼 보입니다. 사례관리번호(별칭)가 맞습니까?'))return;g.members.push({code:c});save();route()}
+function cycAtt(id,n,c){const g=S.groups.find(x=>x.id===id);g.att[n]=g.att[n]||{};const o=g.att[n][c]=g.att[n][c]||{};o.a=ATT[(ATT.indexOf(o.a||'')+1)%ATT.length];save();route()}
+function member(g,p,code){const Q=(p.evaluation||{}).quant||[];
+  return `<p class="sub"><a href="#/run">운영 기록</a> › <a href="#/run/${g.id}">${esc(g.name)}</a> ›</p><h1>${esc(code)}</h1>
+  <div class="card"><h3>회기별 기록</h3><div class="scroll"><table><tr><th>회기</th><th>출석</th><th>과제 실천</th><th>관찰 메모</th></tr>
+  ${p.sessions.map(s=>{const o=((g.att[s.n]||{})[code]||{});return `<tr><td>${s.n}. ${esc(s.title)}</td><td><select onchange="setAtt('${g.id}',${s.n},'${esc(code)}','a',this.value)">${ATT.map(a=>`<option${o.a===a?' selected':''}>${a}</option>`).join('')}</select></td>
+   <td><input type="checkbox" ${o.hw?'checked':''} onchange="setAtt('${g.id}',${s.n},'${esc(code)}','hw',this.checked)"></td><td><input style="width:100%;min-width:200px" value="${esc(o.memo||'')}" placeholder="참여 태도, 변화, 연계 필요 사항" onchange="setAtt('${g.id}',${s.n},'${esc(code)}','memo',this.value)"></td></tr>`}).join('')}</table></div></div>
+  ${Q.map((q,i)=>{const sc=((g.scores[i]||{})[code]||{});return `<div class="card"><h3>${esc(q.name)}</h3><p class="sub">1~${q.points} 숫자로 입력 (${(q.labels||[]).map((l,k)=>(k+1)+'='+esc(l)).join(', ')}) · 사전 합계 <b id="t${i}a">${tot(p,q,i,sc.pre)??'-'}</b> · 사후 합계 <b id="t${i}b">${tot(p,q,i,sc.post)??'-'}</b></p>
+   <div class="scroll"><table><tr><th>번호</th><th>문항</th><th>사전</th><th>사후</th></tr>${q.items.map((it,k)=>`<tr><td>${it.n}</td><td>${esc(it.text)}</td>
+   <td><input class="num" type="number" min="1" max="${q.points}" value="${esc((sc.pre||[])[k]??'')}" onchange="setScore('${g.id}',${i},'${esc(code)}','pre',${k},this.value)"></td>
+   <td><input class="num" type="number" min="1" max="${q.points}" value="${esc((sc.post||[])[k]??'')}" onchange="setScore('${g.id}',${i},'${esc(code)}','post',${k},this.value)"></td></tr>`).join('')}</table></div></div>`}).join('')}
+  <p><button class="danger" onclick="delMember('${g.id}','${esc(code)}')">이 참여자 기록 지우기</button></p>`}
+function setAtt(id,n,c,f,v){const g=S.groups.find(x=>x.id===id);g.att[n]=g.att[n]||{};(g.att[n][c]=g.att[n][c]||{})[f]=v;save()}
+function setScore(id,i,c,w,k,v){const g=S.groups.find(x=>x.id===id),p=P(g.prog),q=p.evaluation.quant[i];g.scores[i]=g.scores[i]||{};const o=g.scores[i][c]=g.scores[i][c]||{};o[w]=o[w]||[];o[w][k]=v===''?null:+v;save();
+  const e=$('#t'+i+(w==='pre'?'a':'b'));if(e)e.textContent=tot(p,q,i,o[w])??'-'}
+function delMember(id,c){if(!confirm(c+' 의 기록을 모두 지웁니다. 되돌릴 수 없습니다.'))return;const g=S.groups.find(x=>x.id===id);g.members=g.members.filter(m=>m.code!==c);Object.values(g.att).forEach(a=>delete a[c]);Object.values(g.scores).forEach(a=>delete a[c]);save();location.hash='#/run/'+id}
+function delGroup(id){const g=S.groups.find(x=>x.id===id);if(!confirm('「'+g.name+'」 집단의 기록을 모두 지웁니다. 되돌릴 수 없습니다.'))return;S.groups=S.groups.filter(x=>x.id!==id);save();location.hash='#/run'}
+function down(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)}
+function csv(id){const g=S.groups.find(x=>x.id===id),p=P(g.prog),Q=(p.evaluation||{}).quant||[];const c=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+  const head=['사례관리번호',...p.sessions.map(s=>s.n+'회 출석'),'과제 실천 횟수',...Q.flatMap(q=>[q.name+' 사전',q.name+' 사후'])];
+  const rows=g.members.map(m=>[m.code,...p.sessions.map(s=>((g.att[s.n]||{})[m.code]||{}).a||''),p.sessions.filter(s=>((g.att[s.n]||{})[m.code]||{}).hw).length,...Q.flatMap((q,i)=>[tot(p,q,i,((g.scores[i]||{})[m.code]||{}).pre),tot(p,q,i,((g.scores[i]||{})[m.code]||{}).post)])]);
+  down(g.name+'_결과표.csv',[head,...rows].map(r=>r.map(c).join(',')).join('\r\n'),'text/csv')}
+
+/* ---------- 집단 결과 보고서 ---------- */
+function rng(seed){let a=seed>>>0;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const LOWGOOD=/스트레스|우울|불안|소진|분노/;
+function sampleGroup(no){const p=P(no)||G.programs[0];const r=rng(p.no*977+13);const Q=(p.evaluation||{}).quant||[];
+  const g={id:'sample',sample:true,prog:p.no,name:'견본 집단',facilitator:'견본',members:[],att:{},log:{},scores:{},done:{},
+   summary:'견본 문장입니다. 진행자가 집단 전체의 변화, 잘된 점, 다음 기수에 고칠 점을 적는 자리입니다.',voices:'견본 문장입니다. 참여자가 남긴 소감을 번호 없이 옮겨 적는 자리입니다.'};
+  for(let k=1;k<=8;k++)g.members.push({code:'견본-'+String(k).padStart(2,'0')});
+  p.sessions.forEach((s,si)=>{const d=new Date(2027,2,2+7*si);g.log[s.n]={date:d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};g.att[s.n]={};
+    g.members.forEach(m=>{const x=r();const a=x<.8?'○':x<.9?'△':'×';g.att[s.n][m.code]={a,hw:a!=='×'&&r()<.7}})});
+  g.log[p.sessions[0].n].memo='견본 메모입니다. 회기 진행판에서 적은 운영 메모가 회기별로 모입니다.';
+  Q.forEach((q,i)=>{g.scores[i]={};const rv=revOf(p,q,i),low=LOWGOOD.test(q.name);g.members.forEach((m,mi)=>{const a=[],b=[];
+    q.items.forEach((it,k)=>{let v=1+Math.floor(r()*Math.max(1,q.points-1));let w=Math.min(q.points,v+(r()<.55?1:0));if(low){const t=v;v=w;w=t}if(rv[k]){v=q.points+1-v;w=q.points+1-w}a.push(v);b.push(w)});
+    g.scores[i][m.code]=mi===7?{pre:a}:{pre:a,post:b}})});
+  return g}
+function stats(g){const p=P(g.prog),Q=(p.evaluation||{}).quant||[],M=g.members;const at=(s,m)=>((g.att[s.n]||{})[m.code]||{});
+  const per=p.sessions.map(s=>({n:s.n,title:s.title,o:M.filter(m=>at(s,m).a==='○').length,d:M.filter(m=>at(s,m).a==='△').length,x:M.filter(m=>at(s,m).a==='×').length,hw:M.filter(m=>at(s,m).hw).length}));
+  const marked=per.reduce((a,s)=>a+s.o+s.d+s.x,0),present=per.reduce((a,s)=>a+s.o+s.d,0),hw=per.reduce((a,s)=>a+s.hw,0);
+  const sc=Q.map((q,i)=>{const o=g.scores[i]||{};const rows=M.map(m=>({a:tot(p,q,i,(o[m.code]||{}).pre),b:tot(p,q,i,(o[m.code]||{}).post)})).filter(r=>r.a!=null&&r.b!=null);const k=rows.length;const mean=f=>k?rows.reduce((s,r)=>s+r[f],0)/k:null;
+    return{name:q.name,n:k,pre:mean('a'),post:mean('b'),up:rows.filter(r=>r.b>r.a).length,same:rows.filter(r=>r.b===r.a).length,down:rows.filter(r=>r.b<r.a).length,max:q.items.length*q.points,unknown:revUnknown(p,q,i)}});
+  const dates=p.sessions.map(s=>(g.log[s.n]||{}).date).filter(Boolean).sort();
+  return{n:M.length,ns:p.sessions.length,per,rate:marked?Math.round(100*present/marked):null,hwRate:present?Math.round(100*hw/present):null,done:per.filter(s=>s.o+s.d+s.x>0).length,sc,from:dates[0]||'',to:dates[dates.length-1]||'',both:sc.length?Math.max(...sc.map(x=>x.n)):null}}
+function reportBody(g,pr){const p=P(g.prog),st=stats(g);const f1=v=>v==null?'-':v.toFixed(1);const sg=v=>v==null?'-':(v>0?'+':'')+v.toFixed(1);
+  const ta=(f,ph)=>pr?`<p style="white-space:pre-wrap;min-height:40px">${esc(g[f]||'')}</p>`:`<textarea ${g.sample?'readonly':''} placeholder="${ph}" onchange="setG('${g.id}','${f}',this.value)">${esc(g[f]||'')}</textarea>`;
+  const memos=p.sessions.map(s=>(g.log[s.n]||{}).memo?`<p><b>${s.n}회기</b> ${esc(g.log[s.n].memo)}</p>`:'').join('');
+  return `<div class="rep"><h1>${esc(p.title)} — 집단 결과 보고서</h1>
+  <p class="sub">서울특화 정서적자활 프로그램 ${String(p.no).padStart(2,'0')} · ${esc(g.name)} · 진행자 ${esc(g.facilitator||'-')} · ${st.from?esc(st.from)+' ~ '+esc(st.to):'진행일 기록 없음'} · 작성 ${new Date().toISOString().slice(0,10)}</p>
+  <div class="tiles"><div class="tile"><span class="sub">참여 인원</span><b>${st.n}명</b><span class="sub">${st.ns}회기 중 ${st.done}회기 진행</span></div>
+   <div class="tile"><span class="sub">출석률</span><b>${st.rate==null?'-':st.rate+'%'}</b><span class="sub">지각·조퇴 포함, 기록된 칸 기준</span></div>
+   <div class="tile"><span class="sub">과제 실천율</span><b>${st.hwRate==null?'-':st.hwRate+'%'}</b><span class="sub">출석한 회기 가운데</span></div>
+   <div class="tile"><span class="sub">사전·사후 모두 응답</span><b>${st.both==null?'-':st.both+'명'}</b><span class="sub">변화 계산에 쓰인 인원</span></div></div>
+  <h2>1. 사전·사후 변화</h2>${st.sc.length?`<div class="scroll"><table><tr><th>척도</th><th>응답</th><th>사전 평균</th><th>사후 평균</th><th>변화</th><th>향상 · 같음 · 하락</th><th style="width:30%">회색 사전 / 초록 사후</th></tr>
+   ${st.sc.map(x=>`<tr><td>${esc(x.name)}${x.unknown?' ※':''}</td><td>${x.n}명</td><td>${f1(x.pre)}</td><td>${f1(x.post)}</td><td><b>${x.pre==null?'-':sg(x.post-x.pre)}</b></td><td>${x.up} · ${x.same} · ${x.down}</td>
+    <td>${x.pre==null?'':`<div class="bar pre" style="width:${100*x.pre/x.max}%"></div><div class="bar" style="width:${100*x.post/x.max}%;margin-top:2px"></div>`}</td></tr>`).join('')}</table></div>
+   ${st.sc.some(x=>x.unknown)?'<div class="note">※ 표시한 척도는 책에 채점·역채점 기준이 적혀 있지 않아 <b>단순 합계</b>로 계산했습니다. 점수가 높을수록 좋은지도 정해지지 않았습니다. 과정을 만드신 분의 확인을 받은 뒤 확정됩니다.</div>':''}`:'<p class="sub">이 과정에는 숫자로 재는 척도가 없습니다.</p>'}
+  <h2>2. 회기별 참여</h2><div class="scroll"><table><tr><th>회기</th><th>진행일</th><th>출석</th><th>지각·조퇴</th><th>결석</th><th>과제 실천</th><th style="width:30%">출석 인원</th></tr>
+   ${st.per.map(s=>`<tr><td>${s.n}. ${esc(s.title)}</td><td>${esc((g.log[s.n]||{}).date||'-')}</td><td>${s.o}</td><td>${s.d}</td><td>${s.x}</td><td>${s.hw}</td><td>${st.n?`<div class="bar" style="width:${100*(s.o+s.d)/st.n}%"></div>`:''}</td></tr>`).join('')}</table></div>
+  <h2>3. 진행자 종합 의견</h2>${ta('summary','집단 전체의 변화, 잘된 점, 어려웠던 점, 다음 기수에 고칠 점')}
+  <h2>4. 참여자 소감</h2>${ta('voices','참여자가 남긴 말을 번호·이름 없이 옮겨 적습니다')}
+  ${memos?`<h2>5. 회기 운영 메모</h2>${memos}`:''}
+  <p class="sub">이 보고서에는 참여자의 이름과 사례관리번호가 들어가지 않습니다.</p></div>`}
+function report(id,no){const g=id==='sample'?sampleGroup(no||1):S.groups.find(x=>x.id===id);if(!g)return'<p>없는 집단입니다.</p>';
+  return `<p class="sub">${g.sample?'<a href="#/review">검수 안내</a> ›':`<a href="#/run">운영 기록</a> › <a href="#/run/${g.id}">${esc(g.name)}</a> ›`}</p>
+  ${g.sample?`<div class="note"><b>견본입니다.</b> 숫자와 문장은 모두 지어낸 것이며 실제 참여자 자료가 아닙니다. 「운영 기록」에 집단을 만들어 출석과 검사 점수를 넣으면 같은 모양의 보고서가 저절로 만들어집니다.</div>
+   <p class="row">다른 과정의 견본 보기 <select onchange="location.hash='#/report/sample/'+this.value">${G.programs.map(p=>`<option value="${p.no}"${p.no==g.prog?' selected':''}>${String(p.no).padStart(2,'0')} ${esc(p.title)}</option>`).join('')}</select></p>`:''}
+  <div class="card">${reportBody(g,false)}</div>
+  <p class="row"><button onclick="printRep('${g.id}',${g.prog})">보고서 인쇄 · PDF로 저장</button><button class="ghost" onclick="sumFile('${g.id}',${g.prog})">집계 파일 내려받기 (번호 없음)</button></p>
+  <p class="sub">집계 파일에는 인원·평균 같은 합친 숫자만 들어 있어, 여러 센터의 결과를 한데 모을 때 씁니다.</p>`}
+function repG(id,no){return id==='sample'?sampleGroup(no):S.groups.find(x=>x.id===id)}
+function printRep(id,no){$('#printArea').innerHTML=reportBody(repG(id,no),true);window.print()}
+function sumFile(id,no){const g=repG(id,no),p=P(g.prog),st=stats(g);
+  down(p.title+'_'+g.name+'_집계.json',JSON.stringify({kind:'jeongseo-summary',sample:!!g.sample,prog:p.no,title:p.title,group:g.name,from:st.from,to:st.to,members:st.n,sessions:st.ns,rate:st.rate,hwRate:st.hwRate,per:st.per.map(s=>({n:s.n,o:s.o,d:s.d,x:s.x,hw:s.hw})),scales:st.sc},null,1),'application/json')}
+function setG(id,f,v){const g=S.groups.find(x=>x.id===id);if(!g)return;g[f]=v;save()}
+
+/* ---------- 검수 의견 ---------- */
+function addReview(no,n){const t=$('#rvtx').value.trim();if(!t)return;S.reviews.push({id:uid(),prog:no,session:n||0,who:$('#rvwho').value.trim(),text:t,at:new Date().toISOString().slice(0,10)});save();push({t:'reviews',val:S.reviews});alert(ON()?'의견을 남겼습니다. 담당자에게 전달됩니다.':'의견을 남겼습니다. 「검수」 화면에서 답변 파일로 함께 보내집니다.');$('#rvtx').value=''}
+
+/* ---------- 자료 관리 ---------- */
+function dataPage(){return `<h1>자료 관리</h1><div class="card"><h3>기록은 어디에 있나</h3><p>운영 기록과 검수 의견은 서버로 보내지 않고 <b>지금 쓰는 컴퓨터의 이 브라우저에만</b> 저장됩니다. 브라우저 기록을 지우거나 다른 컴퓨터에서 열면 보이지 않으니, 주기적으로 파일로 내려받아 기관 폴더에 보관하세요.</p>
+  <p class="row"><button onclick="down('정서적자활_기록_'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(S),'application/json')">전체 기록 내려받기</button>
+  <label class="btn ghost">기록 파일 불러오기<input type="file" accept=".json" style="display:none" onchange="imp(this.files[0])"></label>
+  <button class="danger" onclick="if(confirm('이 브라우저의 모든 기록을 지웁니다. 되돌릴 수 없습니다.')){localStorage.removeItem(KEY);S=load();route()}">모두 지우기</button></p></div>
+  <div class="card"><h3>개인정보 원칙</h3><ul><li>참여주민은 사례관리번호(별칭)로만 적습니다.</li><li>번호와 실제 인물의 대조표는 운영자가 이 도구 밖에서 따로 관리합니다.</li><li>관찰 메모에도 이름·연락처·주소를 적지 않습니다.</li></ul></div>
+  <div class="card"><h3>책 전체에서 확인할 점</h3><ul>${li((G.front||{}).issues)||'<li>없음</li>'}</ul></div>`}
+function imp(f){if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result.replace(/^﻿/,''));if(!Array.isArray(d.groups))throw 0;if(!confirm('지금 기록을 불러온 파일 내용으로 바꿉니다. 계속할까요?'))return;S=Object.assign({groups:[],reviews:[],rev:{},cur:'',me:{},ans:{},adm:{files:[],st:{}}},d);save();route()}catch(e){alert('이 도구에서 내려받은 기록 파일이 아닙니다.')}};r.readAsText(f)}
+
+/* ---------- 검수 ---------- */
+const CONTACT=(G.contact||'');const DUE=(G.due||'');
+const COMMON=[
+ {t:'시연이 필요한 활동',w:'교육과정 평가회의에서 「시연과정이 시급하다」는 의견이 가장 많았습니다. 책에는 활동 이름과 시간만 있고 실제 진행 말(대본)이 거의 없습니다.',a:'이 과정에서 글만으로는 진행하기 어려워 시연(진행 예시·영상)이 꼭 필요한 활동은 무엇인가요? 가능하면 진행할 때 쓰시는 말도 적어 주세요.',n:'아직 시연 자료는 없고, 책의 회기표만 넣었습니다.'},
+ {t:'3시간으로 운영할 때',w:'회의에서 회기 시간을 2시간에서 3시간으로 조율하자는 의견이 나왔습니다.',a:'회기를 3시간으로 늘린다면 늘어난 1시간을 어느 활동에 쓰는 것이 좋을까요? 회기마다 다르면 회기별로 적어 주세요.',n:'「3시간 운영안」을 켜면 모든 항목을 1.5배로 늘리는 임시 배분을 보여 줍니다.'},
+ {t:'촉진자의 역할',w:'회의에서 프로그램 담당자 외에 촉진자를 활용하자는 의견이 나왔습니다.',a:'촉진자가 있다면 어떤 역할을 맡기면 좋을까요? 참여자가 몇 명을 넘으면 꼭 필요한가요?',n:'촉진자 안내 화면은 아직 없습니다. 답을 받아 만들 예정입니다.'},
+ {t:'교구·준비물 구하는 곳',w:'카드·스티커·영상 등 책에 실려 있지 않은 진행 자료가 있습니다.',a:'책에 없는 교구는 어디서 구하시나요? 대신 쓸 수 있는 것이나 직접 만든 자료가 있으면 알려 주세요.',n:'회기 진행판의 준비물에는 책에 적힌 이름만 나옵니다.'},
+ {t:'처음 진행하는 실무자에게',w:'이 도구는 과정을 처음 진행하는 실무자도 따라 할 수 있게 하는 것이 목표입니다.',a:'처음 진행하는 사람이 가장 실수하기 쉬운 부분과, 꼭 지켜야 할 점은 무엇인가요?',n:'책의 「운영의 TIP」만 회기마다 보여 줍니다.'},
+ {t:'도구 화면에 대한 의견',w:'과정 개요, 회기 진행판, 평가 척도, 양식·워크시트, 운영 기록 화면을 둘러보신 뒤 적어 주세요.',a:'화면에서 불편한 점, 빠진 기능, 책과 다르게 옮겨진 곳이 있나요?',n:''}];
+function items(no){return (((G.review||{})[no])||[]).concat(no>0?COMMON.map((c,i)=>({id:no+'-c'+(i+1),cat:'운영 의견',pri:'권장',bookPages:[],pdfPages:[],title:c.t,what:c.w,ask:c.a,answerType:'text',toolNow:c.n})):[])}
+const hasA=a=>a&&(a.c||(a.t&&a.t.trim()));
+function answered(it){const a=S.ans[it.id];return !!(a&&(a.c||(a.t&&a.t.trim())))}
+function pct(no){const L=items(no);return L.length?Math.round(100*L.filter(answered).length/L.length):0}
+const PN=no=>no==0?{no:0,title:'책 전체 (발간사·목차 등)',developers:[{name:'서울광역자활센터',center:'담당자'}]}:P(no);
+const PC={'필수':'p1','권장':'p2','참고':'p3'};const ROLES=['과정을 만든 사람','업무를 이어받은 담당자','함께 진행한 실무자','그 밖'];
+function review(){const me=S.me||{};const mine=me.progs||[];const sp=mine.find(n=>n>0)||1;const spp=P(sp);
+  const must=mine.reduce((a,no)=>a+items(no).filter(x=>x.pri==='필수').length,0),mdone=mine.reduce((a,no)=>a+items(no).filter(x=>x.pri==='필수'&&answered(x)).length,0);
+  return `<h1>검수 안내</h1>${SHEET&&K&&S.kok===false?'<div class="note"><b>이 링크의 코드가 등록되어 있지 않습니다.</b> 받으신 주소를 끝까지 그대로 여셨는지 확인해 주세요. 그래도 안 되면 담당자에게 알려 주세요. 답은 이 컴퓨터에 저장되고, 아래에서 파일로 받아 보내실 수도 있습니다.</div>':''}${ON()&&S.me.name?`<p><b>${esc(S.me.name)}</b> 선생님께 드리는 검수 요청입니다.</p>`:''}
+  <div class="card" style="border-color:var(--main);border-width:2px"><h3>만드신 과정이 현장에서 더 많이, 같은 기준으로 쓰이도록</h3>
+   <p>「서울특화 정서적자활 프로그램」 책의 7개 과정을, 처음 맡은 실무자도 <b>회기를 따라가며 진행하고, 기록하고, 결과를 숫자로 내놓을 수 있는 도구</b>로 옮기고 있습니다. 먼저 완성되면 어떤 모습인지 봐 주세요.</p>
+   <div class="grid">
+    <a class="card" href="#/p/${sp}/s/1"><b>① 회기 진행판</b><div class="sub">준비물, 단계별 순서, 시간 재기, 운영 TIP, 워크시트 인쇄를 한 화면에서 따라갑니다.</div><span class="chip ok">1회기 열어 보기</span></a>
+    <a class="card" href="#/p/${sp}/eval"><b>② 평가 척도와 자동 채점</b><div class="sub">사전·사후 검사 점수를 넣으면 합계와 변화가 계산됩니다.</div><span class="chip ok">척도 보기</span></a>
+    <a class="card" href="#/report/sample/${sp}"><b>③ 집단 결과 보고서</b><div class="sub">출석, 과제 실천, 사전·사후 변화가 한 장으로 나옵니다. 기관·지자체에 내는 결과 자료가 됩니다.</div><span class="chip ok">견본 보고서 보기</span></a>
+   </div><p class="sub">지금은 「${String(sp).padStart(2,'0')} ${esc(spp.title)}」로 열립니다. 아래에서 담당 과정을 고르시면 그 과정으로 바뀝니다.</p></div>
+  <div class="card"><h3>왜 답이 필요한가요</h3>
+   <p>책을 도구로 옮기다 보니, 책만으로는 정할 수 없는 곳이 과정마다 나왔습니다. 과정을 만드신 분만 답하실 수 있는 것들입니다.</p>
+   <ul><li><b>채점 기준</b> — 대부분의 척도에 채점·역채점·해석 기준이 적혀 있지 않습니다. 그래서 견본 보고서의 숫자는 아직 단순 합계이고, 이대로는 결과 자료로 내놓기 어렵습니다.</li>
+    <li><b>회기 내용</b> — 시간 합계가 맞지 않거나 다른 회기 내용이 들어간 곳, 책에 실리지 않은 카드·스티커·영상이 있어 처음 진행하는 사람은 책만 보고 따라 하기 어렵습니다.</li></ul>
+   <p>답해 주시면 세 가지가 가능해집니다.</p>
+   <ol class="steps"><li><b>누가 진행해도 같은 과정이 됩니다.</b> 처음 맡은 실무자도 만드신 의도대로 진행합니다.</li>
+    <li><b>어느 센터나 같은 기준으로 잽니다.</b> 채점 기준이 하나로 정해지면 센터끼리 결과를 합칠 수 있습니다.</li>
+    <li><b>합친 결과가 과정을 넓히는 근거가 됩니다.</b> 효과를 숫자로 보여 줄 수 있어야 더 많은 센터와 기관이 이 과정을 엽니다.</li></ol></div>
+  <div class="card"><h3>부탁드리는 일 ${mine.length?`<span class="chip p1">필수 ${must}개 · 약 ${Math.max(5,Math.round(must*1.5/5)*5)}분</span>`:''}</h3><ol class="steps">
+   <li><b>이름과 담당 과정을 고릅니다.</b> 바로 아래 칸입니다.${SHEET&&GC&&!ON()?' 적으신 뒤 「이 이름으로 시작하기」를 눌러 주세요.':''}</li>
+   <li><b>「필수」 항목에 답합니다.</b> 항목마다 책 쪽 그림과 보기가 함께 나옵니다. 보기를 한 번 누르면 저장됩니다. 잘 모르는 것은 「잘 모르겠습니다」를 누르고 넘어가시면 됩니다. 시간이 되시면 「권장」 항목도 봐 주세요.</li>
+   ${AUTO()?`<li><b>따로 보내실 것은 없습니다.</b> 답은 누르는 즉시 담당자에게 전달됩니다. 중간에 닫았다가 같은 링크로 다시 열면 이어서 하실 수 있습니다.${DUE?' 기한은 <b>'+esc(DUE)+'</b>입니다.':''}</li>`:`<li><b>답변 파일을 보냅니다.</b> 맨 아래 「내 답변 파일 내려받기」로 받은 파일 하나를 ${CONTACT?esc(CONTACT):'이 안내를 보내 준 담당자'}에게 보내 주세요.${DUE?' 기한은 <b>'+esc(DUE)+'</b>입니다.':''}</li>`}</ol>
+   <p class="sub">글로 적기 번거로우시면 전화나 만남으로 말씀해 주셔도 됩니다. 담당자가 받아 적습니다.</p></div>
+  <div class="card"><h3>검수자 정보</h3><div class="row"><input placeholder="이름" value="${esc(me.name||'')}" onchange="S.me.name=this.value;saveMe()"><input placeholder="소속 센터" value="${esc(me.center||'')}" onchange="S.me.center=this.value;saveMe()"><select title="답하는 분" onchange="S.me.role=this.value;saveMe()">${ROLES.map(r=>`<option${(me.role||ROLES[0])===r?' selected':''}>${r}</option>`).join('')}</select></div>
+   <p class="sub">함께 만드신 분이나 업무를 이어받은 분께 받으신 주소를 그대로 전달하셔도 됩니다. 각자 자기 이름으로 답해 주시면 따로 구분되어 모입니다.</p>
+   <p>담당 과정 (여러 개 고를 수 있습니다)</p>${G.programs.map(p=>`<label style="display:block"><input type="checkbox" ${mine.includes(p.no)?'checked':''} onchange="togMine(${p.no},this.checked)"> ${String(p.no).padStart(2,'0')} ${esc(p.title)} <span class="sub">${(p.developers||[]).map(d=>esc(d.name)).join(', ')}</span></label>`).join('')}
+   <label style="display:block"><input type="checkbox" ${mine.includes(0)?'checked':''} onchange="togMine(0,this.checked)"> 책 전체 (발간사·목차 등) <span class="sub">서울광역자활센터 담당자</span></label>
+   <p style="margin-top:10px"><label><input type="checkbox" ${me.credit?'checked':''} onchange="S.me.credit=this.checked;saveMe()"> 완성된 도구에 「감수」로 제 이름을 적어도 좋습니다.</label><br>
+   <label><input type="checkbox" ${me.proxy?'checked':''} onchange="S.me.proxy=this.checked;saveMe()"> 담당자가 말씀을 듣고 대신 적는 답변입니다.</label></p>${SHEET&&GC&&!K?'<p><button onclick="join()">이 이름으로 시작하기</button></p><p class="sub">전에 답하신 적이 있으면 같은 이름과 소속을 적고 누르세요. 그때 답한 데서 이어집니다.</p>':SHEET&&GC&&ON()?'<p class="sub">시작했습니다. 다른 기기에서 이어 하실 때는 같은 링크를 열고 같은 이름과 소속을 적으면 됩니다.</p>':''}</div>
+  <h2>확인 항목 ${mine.length?`<span class="sub">내 담당 필수 ${must}개 중 ${mdone}개 답함</span>`:''}</h2><div class="grid">${[...G.programs.map(p=>p.no),0].sort((a,b)=>(mine.includes(b)?1:0)-(mine.includes(a)?1:0)).map(no=>{const L=items(no);if(!L.length)return'';const p=PN(no);const need=L.filter(x=>x.pri==='필수');const nd=need.filter(answered).length;
+    return `<a class="card" href="#/review/p/${no}" style="${mine.includes(no)?'border-color:var(--main);border-width:2px':''}"><b>${no?String(no).padStart(2,'0')+' ':''}${esc(p.title)}</b>${mine.includes(no)?' <span class="chip ok">내 담당</span>':''}
+    <div class="sub">필수 ${need.length}개 중 ${nd}개 답함 · 전체 ${L.length}개</div><div class="prog"><i style="width:${need.length?100*nd/need.length:0}%"></i></div></a>`}).join('')}</div>
+  ${AUTO()?sendCardOn():`<div class="card"><h3>답변 보내기</h3><p class="row"><button onclick="exportMine()">내 답변 파일 내려받기</button><label class="btn ghost">전에 받은 내 답변 파일 이어서 하기<input type="file" accept=".json" style="display:none" onchange="importMine(this.files[0])"></label></p>
+   <p class="sub">지금까지 답한 항목 ${Object.keys(S.ans).filter(k=>hasA(S.ans[k])).length}개 · 회기에 남긴 의견 ${S.reviews.length}개 · 역채점 표시한 척도 ${Object.keys(S.rev).length}개</p>
+   <div class="note">답변은 서버로 전송되지 않고 <b>지금 쓰는 컴퓨터의 이 브라우저에만</b> 저장됩니다. 창을 닫았다 다시 열어도 남아 있지만, 파일로 내려받아 보내셔야 담당자에게 전달됩니다. 참여주민의 실명은 적지 말아 주세요.</div></div>`}
+  <details class="card"><summary><b>답변은 이렇게 쓰입니다</b></summary><ol class="steps"><li>담당자가 검수자들의 답변을 한데 모아 항목별로 봅니다.</li><li>항목마다 「반영함 / 반영하지 않음 / 추가 확인」을 정하고 이유를 적습니다. 같은 과정을 함께 만든 분들의 답이 다르면 다시 여쭙니다.</li><li>반영한 내용으로 도구를 고쳐 다음 검수본을 보내 드립니다. 어떤 답이 어떻게 반영됐는지 표로 함께 드립니다.</li><li>모든 과정이 확정되면 기관에서 내려받아 쓰는 실행프로그램으로 만듭니다.</li></ol></details>
+  ${S.reviews.length?`<h2>회기에 남긴 의견</h2>${S.reviews.slice().reverse().map(r=>`<div class="card"><span class="chip">${String(r.prog).padStart(2,'0')} ${esc((P(r.prog)||{}).title)}${r.session?' · '+r.session+'회기':''}</span><span class="sub">${esc(r.at)}</span><p>${esc(r.text)}</p><button class="ghost" onclick="delReview('${r.id}')">지우기</button></div>`).join('')}`:''}
+  <p class="sub" style="margin-top:30px"><a href="#/review/admin">담당자용: 답변 모으기·반영 관리</a></p>`}
+function delReview(id){S.reviews=S.reviews.filter(x=>x.id!==id);save();push({t:'reviews',val:S.reviews});route()}
+function togMine(no,v){S.me.progs=(S.me.progs||[]).filter(x=>x!==no);if(v)S.me.progs.push(no);saveMe();const y=window.scrollY;route();window.scrollTo(0,y)}
+let rf='must';
+const UNK='잘 모르겠습니다 · 논의가 필요합니다',NONE='특별히 없습니다';
+function opts(it){return it.answerType==='choice'?[...(it.choices||[]),UNK]:[NONE,UNK]}
+function revProg(no){const p=PN(no);if(!p)return'<p>없는 과정입니다.</p>';const L=items(no);const need=L.filter(x=>x.pri==='필수');if(rf==='must'&&!need.length)rf='all';
+  const show=L.filter(it=>rf==='all'||(rf==='must'&&it.pri==='필수')||(rf==='rest'&&it.pri!=='필수')||(rf==='todo'&&!answered(it)));const nd=need.filter(answered).length;
+  const o=(v,t)=>`<option value="${v}"${rf===v?' selected':''}>${t}</option>`;
+  return `<p class="sub"><a href="#/review">검수 안내</a> ›</p><h1>${no?String(no).padStart(2,'0')+' ':''}${esc(p.title)} — 확인 항목</h1>
+  <p class="sub">${(p.developers||[]).map(d=>esc(d.name+' · '+d.center)).join(', ')}${no?` · <a href="#/p/${no}">과정 화면 열기</a> · <a href="#/report/sample/${no}">견본 보고서</a>`:''}</p>
+  <div class="card" style="position:sticky;top:52px;z-index:3"><div class="row"><b id="rvcnt">필수 ${nd} / ${need.length} · 전체 ${L.filter(answered).length} / ${L.length}</b>
+   <select onchange="rf=this.value;route()">${o('must','필수만 ('+need.length+')')}${o('rest','권장·참고 ('+(L.length-need.length)+')')}${o('todo','아직 답하지 않은 것')}${o('all','전체 ('+L.length+')')}</select>
+   <span class="sub">누르거나 적는 즉시 저장됩니다</span></div><div class="prog" style="margin-top:8px"><i id="rvbar" style="width:${need.length?100*nd/need.length:0}%"></i></div></div>
+  ${show.map(it=>qCard(it,no,L.indexOf(it))).join('')||'<p class="sub">해당하는 항목이 없습니다.</p>'}
+  <div class="card"><h3>여기까지입니다. 고맙습니다.</h3>${rf==='must'&&L.length>need.length?`<p>시간이 되시면 권장·참고 항목 ${L.length-need.length}개도 봐 주세요. 시연이 필요한 활동, 3시간 운영, 촉진자 역할을 여쭙는 질문이 들어 있습니다.</p>`:''}
+   <p class="row">${rf==='must'&&L.length>need.length?`<button onclick="rf='rest';route()">권장·참고 항목 보기</button>`:''}<a class="btn ghost" href="#/review">검수 안내로 돌아가 답변 보내기</a></p></div>`}
+function qCard(it,no,ix){const a=S.ans[it.id]||{};const ch=opts(it);const pg=[...new Set(it.pdfPages||[])];
+  return `<div class="card q"><div><span class="chip ${PC[it.pri]||'p3'}">${esc(it.pri)}</span><span class="chip">${esc(it.cat)}</span> <b>${esc(it.title)}</b> <span class="sub">${esc(it.id)}</span> <span class="chip ok" data-ok="${ix}" style="${answered(it)?'':'display:none'}">답함</span></div>
+  <div class="qgrid">${pg.length?`<a class="th" target="_blank" href="${img(pg[0])}"><img loading="lazy" src="${img(pg[0])}" alt="책 ${pg[0]-2}쪽">책 ${pg[0]-2}쪽 · 눌러서 크게</a>`:''}
+   <div style="flex:1;min-width:240px"><p>${esc(it.what)}</p>${it.toolNow?`<p class="sub">지금 도구에서는: ${esc(it.toolNow)}</p>`:''}
+   ${pg.length>1?`<p>${pg.slice(1,8).map(n=>`<a class="chip" target="_blank" href="${img(n)}">책 ${n-2}쪽 보기</a>`).join('')}</p>`:''}</div></div>
+  <p><b>${esc(it.ask)}</b></p>
+  ${ch.map((c,k)=>`<button class="opt${a.c===c?' on':''}" data-o="${ix}" onclick="setAns(${no},${ix},'c',${k})">${esc(c)}</button>`).join('')}
+  <textarea placeholder="${it.answerType==='choice'?'보충 설명이나 고칠 문구 (선택)':'여기에 적어 주세요. 적을 것이 없으면 위 단추를 눌러 주세요.'}" onchange="setAns(${no},${ix},'t',this.value)">${esc(a.t||'')}</textarea></div>`}
+function setAns(no,ix,f,v){const L=items(no),it=L[ix];const a=S.ans[it.id]=S.ans[it.id]||{};if(f==='c'){v=opts(it)[v];if(a.c===v)v=''}
+  a[f]=v;a.at=new Date().toISOString().slice(0,10);save();push({t:'ans',id:it.id,c:a.c||'',x:a.t||'',at:a.at});
+  document.querySelectorAll('[data-o="'+ix+'"]').forEach((b,k)=>b.classList.toggle('on',opts(it)[k]===a.c));
+  const o=document.querySelector('[data-ok="'+ix+'"]');if(o)o.style.display=answered(it)?'':'none';
+  const need=L.filter(x=>x.pri==='필수'),nd=need.filter(answered).length;const c=$('#rvcnt');if(c)c.textContent='필수 '+nd+' / '+need.length+' · 전체 '+L.filter(answered).length+' / '+L.length;
+  const b=$('#rvbar');if(b)b.style.width=(need.length?100*nd/need.length:0)+'%'}
+function exportMine(){if(!(S.me.name||'').trim()){alert('먼저 「검수자 정보」에 이름을 적어 주세요.');return}
+  down('검수답변_'+S.me.name.trim()+'_'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({kind:'jeongseo-review',ver:1,dataVer:G.ver||'',me:S.me,at:new Date().toISOString(),ans:S.ans,rev:S.rev,reviews:S.reviews},null,1),'application/json')}
+function readJson(f,cb){const r=new FileReader();r.onload=()=>{try{cb(JSON.parse(String(r.result).replace(/^﻿/,'')))}catch(e){alert(f.name+' : 이 도구의 답변 파일이 아닙니다.')}};r.readAsText(f)}
+function importMine(f){if(!f)return;readJson(f,d=>{if(d.kind!=='jeongseo-review'){alert('이 도구의 답변 파일이 아닙니다.');return}if(!confirm('이 파일의 답변을 불러와 이어서 합니다. 지금 화면에 적은 답변은 파일 내용으로 바뀝니다.'))return;S.me=d.me||{};S.ans=d.ans||{};S.rev=d.rev||{};S.reviews=d.reviews||[];save();route()})}
+
+/* ---------- 담당자용: 답변 모으기 ---------- */
+const AST=['미처리','반영함','반영하지 않음','추가 확인'];let af='ans';
+
+function admin(){const F=S.adm.files;const nos=[...G.programs.map(p=>p.no),0];
+  const rows=nos.flatMap(no=>items(no).map(it=>({no,it,as:F.map(x=>({who:(x.me.name||'이름 없음')+(x.me.role&&x.me.role!==ROLES[0]?' · '+x.me.role:''),a:(x.ans||{})[it.id]})).filter(x=>hasA(x.a))})));
+  const stOf=r=>(S.adm.st[r.it.id]||{}).s||'미처리';const cnt=k=>rows.filter(r=>r.as.length&&stOf(r)===k).length;
+  const show=rows.filter(r=>af==='all'||(af==='ans'&&r.as.length)||(af==='todo'&&r.as.length&&stOf(r)==='미처리')||(af==='diff'&&new Set(r.as.map(x=>x.a.c).filter(Boolean)).size>1)||(af==='none'&&!r.as.length&&r.it.pri==='필수'));
+  const opt=(v,t)=>`<option value="${v}"${af===v?' selected':''}>${t}</option>`;
+  return `<p class="sub"><a href="#/review">검수 안내</a> ›</p><h1>답변 모으기·반영 관리 <span class="sub">담당자용</span></h1>
+  ${SHEET?sheetCard():''}<div class="card"><h3>${SHEET?'파일로 받은 답변이 있으면':'1. 검수자에게 받은 답변 파일 불러오기'}</h3><p class="row"><label class="btn">답변 파일 고르기 (여러 개 가능)<input type="file" accept=".json" multiple style="display:none" onchange="addFiles(this.files)"></label></p>
+   ${F.map((x,i)=>`<span class="chip">${esc(x.me.name||'이름 없음')} · ${esc(x.me.center||'')} · ${esc((x.at||'').slice(0,10))} · 답 ${Object.values(x.ans||{}).filter(hasA).length}개 <a href="javascript:void 0" onclick="delFile(${i})">✕</a></span>`).join('')||'<p class="sub">아직 불러온 파일이 없습니다.</p>'}
+   <p class="sub">같은 사람이 다시 보낸 파일을 불러오면 새 것으로 바뀝니다.</p></div>
+  <div class="card"><h3>2. 항목별로 보고 처리 정하기</h3><p class="row"><select onchange="af=this.value;route()">${opt('ans','답이 들어온 항목')}${opt('todo','아직 처리하지 않은 항목')}${opt('diff','검수자끼리 답이 다른 항목')}${opt('none','답이 없는 필수 항목')}${opt('all','전체')}</select>
+    <span class="sub">${AST.map(k=>k+' '+cnt(k)).join(' · ')}</span></p></div>
+  ${show.map(r=>{const st=S.adm.st[r.it.id]||{};return `<div class="card"><div><span class="chip">${r.no?String(r.no).padStart(2,'0'):'책 전체'}</span><span class="chip ${PC[r.it.pri]||'p3'}">${esc(r.it.pri)}</span><span class="chip">${esc(r.it.cat)}</span> <b>${esc(r.it.title)}</b> <span class="sub">${esc(r.it.id)}</span></div>
+    <p class="sub">${esc(r.it.ask)}</p>${r.as.map(x=>`<p><b>${esc(x.who)}</b> ${x.a.c?`<span class="chip">${esc(x.a.c)}</span>`:''} ${esc(x.a.t||'')}</p>`).join('')||'<p class="sub">답 없음</p>'}
+    <div class="row"><select onchange="setAdm('${esc(r.it.id)}','s',this.value)">${AST.map(k=>`<option${(st.s||'미처리')===k?' selected':''}>${k}</option>`).join('')}</select><input style="flex:1;min-width:200px" placeholder="처리 내용·이유 (검수자에게 돌려줄 설명)" value="${esc(st.memo||'')}" onchange="setAdm('${esc(r.it.id)}','memo',this.value)"></div></div>`}).join('')||'<p class="sub">해당하는 항목이 없습니다.</p>'}
+  ${F.some(x=>(x.reviews||[]).length)?`<h2>회기에 남긴 의견</h2>${F.flatMap(x=>(x.reviews||[]).map(r=>`<div class="card"><span class="chip">${String(r.prog).padStart(2,'0')} ${esc((P(r.prog)||{}).title)}${r.session?' · '+r.session+'회기':''}</span><b>${esc(x.me.name||'')}</b><p>${esc(r.text)}</p></div>`)).join('')}`:''}
+  ${F.some(x=>Object.keys(x.rev||{}).length)?`<h2>역채점 표시</h2>${F.flatMap(x=>Object.keys(x.rev||{}).map(k=>{const [no,i]=k.split('-');const q=((P(no)||{}).evaluation||{quant:[]}).quant[i];if(!q)return'';const on=q.items.filter((it,j)=>x.rev[k][j]).map(it=>it.n);return `<div class="card"><b>${esc(x.me.name||'')}</b> · ${String(no).padStart(2,'0')} ${esc(q.name)}<p>거꾸로 채점: ${on.length?on.join(', ')+'번':'없음'}</p></div>`})).join('')}`:''}
+  <div class="card"><h3>3. 결과 내려받기</h3><p class="row"><button onclick="adminCsv()">반영 현황표 내려받기 (CSV)</button><button class="ghost" onclick="adminJson()">종합 파일 내려받기 (도구 수정 요청용)</button></p>
+   <p class="sub">반영 현황표는 검수자에게 돌려주는 답신으로, 종합 파일은 도구를 고칠 때 넘겨주는 자료로 씁니다.</p></div>`}
+function delFile(i){S.adm.files.splice(i,1);save();route()}
+function adminJson(){down('검수종합_'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({kind:'jeongseo-admin',adm:S.adm},null,1),'application/json')}
+function addFiles(fs){[...fs].forEach(f=>readJson(f,d=>{if(d.kind!=='jeongseo-review'){alert(f.name+' : 검수 답변 파일이 아닙니다.');return}S.adm.files=S.adm.files.filter(x=>!((x.me.name||'')===((d.me||{}).name||'')&&(x.me.center||'')===((d.me||{}).center||'')));S.adm.files.push({me:d.me||{},at:d.at,ans:d.ans||{},rev:d.rev||{},reviews:d.reviews||[]});save();route()}))}
+function setAdm(id,f,v){(S.adm.st[id]=S.adm.st[id]||{})[f]=v;save()}
+function adminCsv(){const c=v=>'"'+String(v??'').replace(/"/g,'""')+'"';const out=[['번호','과정','구분','중요도','제목','질문','검수자','고른 답','적은 내용','처리','처리 내용·이유']];
+  [...G.programs.map(p=>p.no),0].forEach(no=>items(no).forEach(it=>{const st=S.adm.st[it.id]||{};const as=S.adm.files.map(x=>({w:x.me.name,a:(x.ans||{})[it.id]})).filter(x=>hasA(x.a));
+   (as.length?as:[{w:'',a:{}}]).forEach(x=>out.push([it.id,no?PN(no).title:'책 전체',it.cat,it.pri,it.title,it.ask,x.w,x.a.c||'',x.a.t||'',as.length?(st.s||'미처리'):'답 없음',st.memo||'']))}));
+  down('검수_반영현황_'+new Date().toISOString().slice(0,10)+'.csv',out.map(r=>r.map(c).join(',')).join('\r\n'),'text/csv')}
+/* ---------- 구글 시트 자동 전달 ---------- */
+const SHEET=G.sheet||'';const QS=new URLSearchParams(location.search);const GC=(QS.get('g')||'').trim();let K=(QS.get('k')||'').trim();if(!K&&GC)K=S.k||'';
+const AUTO=()=>!!(SHEET&&(ON()||(GC&&!K)));
+function join(){const n=(S.me.name||'').trim(),c=(S.me.center||'').trim();if(!n||!c){alert('이름과 소속 센터를 적어 주세요.');return}
+  fetch(SHEET,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({join:GC,name:n,center:c,progs:S.me.progs||[],role:S.me.role||ROLES[0]})}).then(r=>r.json()).then(d=>{if(!d.ok){alert(d.err==='join'?'링크가 올바르지 않습니다. 받으신 주소를 끝까지 그대로 여셨는지 확인해 주세요.':'시작하지 못했습니다. 잠시 뒤 다시 눌러 주세요.');return}
+    K=d.k;S.k=K;S.kok=true;S.me.role=S.me.role||ROLES[0];S.out=Object.keys(S.ans).filter(id=>hasA(S.ans[id])).map(id=>({t:'ans',id,c:S.ans[id].c||'',x:S.ans[id].t||'',at:S.ans[id].at||''})).concat([{t:'me',me:S.me}]);save();pull()}).catch(()=>alert('연결하지 못했습니다. 인터넷 연결을 확인해 주세요.'))}
+
+let busy=false;
+const ON=()=>!!(SHEET&&K&&S.kok);
+function syncText(){const n=(S.out||[]).length;return SHEET&&GC&&!K?'이름과 소속을 적고 「시작하기」를 눌러 주세요':!SHEET||!K?'':S.kok===false?'링크를 확인해 주세요':busy?'보내는 중…':n?'아직 전달되지 않은 답 '+n+'개 (인터넷이 연결되면 다시 보냅니다)':S.kok?'모든 답이 담당자에게 전달됐습니다':'연결하는 중…'}
+function showSync(){const t=syncText();const e=$('#sync');if(e)e.textContent=t.replace(/ \(.*/,'');const b=$('#syncBig');if(b)b.textContent=t}
+function push(op){if(!SHEET||!K)return;S.out=(S.out||[]).concat([op]);save();flush()}
+function saveMe(){save();push({t:'me',me:S.me})}
+function flush(){if(!ON()||busy||!(S.out||[]).length){showSync();return}busy=true;showSync();const batch=S.out.slice();
+  fetch(SHEET,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({k:K,ops:batch})}).then(r=>r.json()).then(d=>{if(!d.ok)throw 0;S.out=S.out.slice(batch.length);save();busy=false;showSync();if(S.out.length)flush()}).catch(()=>{busy=false;showSync()})}
+function pull(){if(!SHEET||!K)return;
+  if(S.k&&S.k!==K){S.me={};S.ans={};S.rev={};S.reviews=[];S.out=[];delete S.kok}S.k=K;save();showSync();
+  fetch(SHEET+'?k='+encodeURIComponent(K)).then(r=>r.json()).then(d=>{if(!d.ok){S.kok=false;save();route();return}S.kok=true;const out=S.out||[];
+    const pend=new Set(out.filter(o=>o.t==='ans').map(o=>o.id));Object.keys(d.ans||{}).forEach(id=>{if(!pend.has(id))S.ans[id]=d.ans[id]});
+    S.me=out.some(o=>o.t==='me')?Object.assign({},d.me,S.me):Object.assign({},S.me,d.me);
+    if(!out.some(o=>o.t==='rev')&&d.rev&&Object.keys(d.rev).length)S.rev=d.rev;
+    if(!out.some(o=>o.t==='reviews')&&(d.reviews||[]).length)S.reviews=d.reviews;
+    save();route();flush()}).catch(()=>showSync())}
+window.addEventListener('online',flush);setInterval(flush,30000);
+function sendCardOn(){return `<div class="card"><h3>답변 전달</h3><p><b id="syncBig"></b></p><p class="sub">답은 누르거나 적는 즉시 담당자의 구글 시트에 저장됩니다. 따로 보내실 것은 없고, 같은 링크로 다시 열면 다른 기기에서도 이어서 하실 수 있습니다. 참여주민의 실명은 적지 말아 주세요.</p>
+  <p class="row"><button class="ghost" onclick="exportMine()">내 답변을 파일로도 받아 두기</button></p></div>`}
+function admKey(v){try{if(v!==undefined)sessionStorage.setItem('jj-admin',v);return sessionStorage.getItem('jj-admin')||''}catch(e){return v||''}}
+function sheetCard(){const L=S.adm.people||[];const base=location.href.split(/[?#]/)[0];
+  return `<div class="card"><h3>시트에서 답변 가져오기</h3><p class="row"><button onclick="adminPull()">시트에서 지금 가져오기</button><span class="sub">${S.adm.pulled?'마지막으로 가져온 때 '+esc(S.adm.pulled):'검수자가 답하면 구글 시트에 바로 쌓입니다. 여기서 가져와 아래에서 항목별로 봅니다.'}</span></p>
+  ${S.adm.join?`<p><b>모두에게 보내는 공통 링크</b></p><p><input readonly style="width:100%" value="${esc(base+'?g='+encodeURIComponent(S.adm.join))}" onclick="this.select()"></p><p class="sub">이 주소 하나를 검수자 모두에게 보냅니다. 각자 이름과 소속을 적고 시작하면 그분 몫으로 답이 쌓입니다.</p>`:''}
+  ${L.length?`<div class="scroll"><table><tr><th>검수자</th><th>답하는 분</th><th>담당 과정</th><th>답한 항목</th><th>마지막 저장</th><th>개인별 링크 (이름을 적지 않고 바로 열게 하고 싶을 때만)</th></tr>${L.map(x=>`<tr><td>${esc(x.name)} <span class="sub">${esc(x.center)}</span></td><td>${esc(x.role||'')}</td><td>${esc((x.progs||[]).join(', '))}</td><td>${x.n}개</td><td>${esc(x.at||'-')}</td><td><input readonly style="width:100%;min-width:280px" value="${esc(base+'?k='+encodeURIComponent(x.k))}" onclick="this.select()"></td></tr>`).join('')}</table></div>`:'<p class="sub">아직 시작한 검수자가 없습니다.</p>'}</div>`}
+function adminPull(){const key=admKey()||prompt('담당자 열쇠를 넣어 주세요. (구글 시트 메뉴 「검수 수집 › 담당자 열쇠 보기」)');if(!key)return;
+  fetch(SHEET,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({admin:key.trim()})}).then(r=>r.json()).then(d=>{if(!d.ok){admKey('');alert('열쇠가 맞지 않습니다.');return}admKey(key.trim());S.adm.people=d.people;S.adm.join=d.join||'';S.adm.files=S.adm.files.filter(x=>!x.k).concat(d.files);S.adm.pulled=new Date().toLocaleString('ko-KR');save();route()}).catch(()=>alert('시트에 연결하지 못했습니다. 인터넷 연결과 시트 주소를 확인해 주세요.'))}
+if((K||GC)&&!location.hash)location.hash='#/review';
+route();pull();
+</script>
+</body>
+</html>
